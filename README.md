@@ -1,7 +1,5 @@
 # 01
 
--> romannumbers
--> fifthandskip
 -> printcombn
 -> sortintegertable
 -> eightqueens
