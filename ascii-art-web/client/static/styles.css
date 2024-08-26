@@ -1,0 +1,256 @@
+@import "https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Press Start 2p", sans-serif;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+}
+
+.title {
+  width: 62%;
+  font-size: 0.9vw;
+  font-family: monospace;
+  font-weight: 700;
+  margin: 8px auto;
+  border-top: dotted 2px orange;
+  border-bottom: dotted 2px orange;
+}
+
+.main {
+  border: ridge 2px #fff;
+  border-radius: 10px;
+  width: 90%;
+  margin: auto;
+  position: relative;
+}
+
+.span {
+  color: #ccc7c7;
+  position: absolute;
+  background-color: #000;
+  left: 30px;
+  top: 7px;
+  padding-left: 6px;
+  font-size: 15px;
+}
+
+#txtarea {
+  border-color: #fff;
+  border-radius: 10px;
+  background-color: #000;
+  width: 60%;
+  height: 15vh;
+  margin: 20px 10px 10px;
+  padding: 10px;
+  color: #fff;
+  resize: none;
+  font-size: 10px;
+  scrollbar-color: #e29301 #000;
+}
+
+.select {
+  margin: 20px 5px 5px;
+  float: right;
+  width: 35%;
+}
+
+#templates {
+  display: block;
+  width: 60%;
+  margin: 10px;
+  height: 5vh;
+  font-size: 15px;
+  border-radius: 10px;
+  background-color: #000;
+  color: #fff;
+  border: ridge 1px #fff;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+/* ---------------------------- Dropdown ----------------------------------- */
+
+button:disabled{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.button-container {
+  display: flex;
+  width: 100%;
+}
+
+.button {
+  /* display: block; */
+  width: 41%;
+  height: 5vh;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: #000;
+  color: #fff;
+  border: ridge 1px #fff;
+  cursor: pointer;
+}
+
+.dropdown-toggle::after {
+  display: inline-block;
+  margin-left: .3rem;
+  vertical-align: .2rem;
+  content: "";
+  border-top: .4rem solid;
+  border-right: .4rem solid transparent;
+  border-left: .4rem solid transparent;
+}
+
+.dropdown {
+  width: 100%;
+  position: relative;
+}
+
+.dropdown-menu{
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  /* display: flex; */
+  flex-direction: column;
+  width: 40%;
+  left: 0.8rem;
+  top: 3.7rem;
+  border-radius: 6px;
+}
+
+.dropdown-menu .dropdown-item {
+  background-color: #f9f9f9;
+  border: none;
+  color: black;
+  padding: 12px 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #b8a5a5;
+  width: 100%;
+}
+
+@media (max-width: 1300px) {
+  #txtarea {
+    display: block;
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+  }
+
+  .select {
+    float: none;
+    width: 80%;
+    margin: auto;
+    display: flex;
+  }
+
+  #templates {
+    display: inline-block;
+    width: 40%;
+    margin-left: 8%;
+    height: 4vh;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  .button {
+    /* display: inline-block;  */
+    width: 75%;
+    height: 4vh;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  .span {
+    margin-left: 8px;
+    font-size: 13px;
+  }
+
+  .dropdown-menu {
+    width: 75%;
+    left: 0.7rem;
+    top: 3.1rem;
+  }
+
+}
+
+@media (max-width: 600px) {
+  .select {
+    display: block;
+  }
+
+  .button-container {
+    flex-direction: column;
+    margin-left: 7%;
+  }
+
+  .button,#templates {
+    width: 80%;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+
+#res {
+  border: solid 1px;
+  width: 90%;
+  margin: 1rem auto 4rem;
+  height: 50vh;
+  overflow: auto;
+  padding: 0 10px;
+  scrollbar-width: auto;
+  scrollbar-color: #e29301 #000;
+  font-family: monospace;
+}
+
+.errContainer {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.err {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#errstatus {
+  font-size: 80px;
+  font-weight: 700;
+  margin: 25px 0;
+}
+
+#errtitle {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+#errmessage {
+  margin: 30px;
+  font-size: 10px;
+  text-align: center;
+}
+
+a {
+  padding-top: 6px;
+  text-decoration: none;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  width: 120px;
+  border-radius: 10px;
+  color: #fff;
+  height: 30px;
+  text-align: center;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text to Ascii Art</title>
+    <link rel="icon" type="image/png" href="static/favicon.png" />
+    <link rel="stylesheet" href="https://unpkg.com/normalize.css" />
+    <link rel="stylesheet" href="static/styles.css" />
+  </head>
+  <body>
+    <pre class="title">
+                                 _   _                           _          __          __         _      
+            /\                  (_) (_)           /\            | |         \ \        / /        | |     
+           /  \     ___    ___   _   _           /  \     _ __  | |_         \ \  /\  / /    ___  | |__   
+          / /\ \   / __|  / __| | | | |         / /\ \   | '__| | __|         \ \/  \/ /    / _ \ | '_ \  
+         / ____ \  \__ \ | (__  | | | |        / ____ \  | |    \ |_           \  /\  /    |  __/ | |_) | 
+        /_/    \_\ |___/  \___| |_| |_|       /_/    \_\ |_|     \__|           \/  \/      \___| |_.__/  
+                                                                                                          
+        </pre
+    >
+    <div class="main">
+      <form id="mainForm" action="/" method="post">
+        <span class="span">Text:</span>
+        <textarea
+          id="txtarea"
+          name="input"
+          placeholder="type something..."
+          required
+          maxlength="3072"
+        >{{.Finput}}</textarea>
+        <div class="select">
+          <select id="templates" name="banner">
+            <option value="thinkertoy" {{if eq .Fbanner "thinkertoy"}}selected{{end}}>Thinkertoy</option>
+            <option value="shadow" {{if eq .Fbanner "shadow"}}selected{{end}}>Shadow</option>
+            <option value="standard" {{if eq .Fbanner "standard"}}selected{{end}}>Standard</option>
+          </select>
+          <div class="button-container">
+            <button class="button" type="submit">Submit</button>
+            <div class="dropdown">
+              {{if .Result }}
+              <button class="button dropdown-toggle" type="button">
+                Save As
+              </button>
+              {{else}}
+              <button class="button dropdown-toggle" type="button" disabled>
+                Save As
+              </button>
+              {{end}}
+              <div class="dropdown-menu">
+                <button class="dropdown-item" id="option1">file.txt</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <hr />
+      <pre id="res">{{.Result}}</pre>
+    </div>
+  </body>
+  <script src="/static/script.js"></script>
+</html>
