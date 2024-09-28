@@ -1,0 +1,61 @@
+{{template "header" .}}
+<div class="main">
+  <div class="card-container">
+    <div
+      class="card-main-info"
+      style="background-image: url('{{.Artist.Image}}');"
+    >
+      <div class="img-info"></div>
+      <div class="infos">
+        <div class="text">
+          <h1>{{.Artist.Name}}</h1>
+          <div class="section-container">
+            <div class="section">
+              <h2>Creation date:</h2>
+              <p>{{.Artist.CreationDate}}</p>
+            </div>
+            <div class="section">
+              <h2>First album:</h2>
+              <p>{{.Artist.FirstAlbum}}</p>
+            </div>
+          </div>
+        </div>
+        <div style="text-align: center">
+          <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}" />
+        </div>
+      </div>
+    </div>
+    <div class="members">
+      <h3>Members</h3>
+      {{range .Artist.Members}}
+        <div>{{.}}</div>
+      {{end}}
+    </div>
+    <div class="dates">
+      <h3>Dates</h3>
+      {{range .Dates.Dates}}
+        <div>{{.}}</div>
+      {{end}}
+    </div>
+    <div class="locations">
+      <h3>Locations</h3>
+      {{range .Locations.Locations}}
+        <div>{{.}}</div>
+      {{end}}
+    </div>
+    <div class="relations">
+      <h3>Relations</h3>
+      {{range $key, $value := .Relation.DatesLocations}}
+          <div class="div1">
+            <h4>{{$key}}</h4>
+              {{range $value}}
+                <div class="div2">
+                  {{.}}
+                </div>
+              {{end}}
+          </div>
+      {{end}}
+    </div>
+  </div>
+</div>
+{{template "footer" .}}

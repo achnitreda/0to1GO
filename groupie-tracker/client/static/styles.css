@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Syne", sans-serif;
+}
+
+body {
+  background-color: #cdcdcd;
+}
+
+
+/*--------------- header */
+header {
+  background-color: #fff;
+  width: 100%;
+  height: 75px;
+  border-bottom: 1px solid #cdcdcd;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-container {
+  padding: 19px;
+}
+
+.header-name {
+  font-size: 2rem;
+  font-weight: bold;
+  box-shadow: none;
+  width: unset;
+  margin-bottom: 1.5rem;
+}
+
+
+/*--------------- footer */
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.footer-container p {
+  text-align: center;
+}
+
+/*----Home----  */
+
+.img-container {
+  background-color: white;
+  box-shadow: unset;
+  border-radius: unset;
+}
+
+.main-img {
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 33.25%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(../static/main-img.png);
+}
+
+.filter-section {
+  background-color: #fff;
+  width: 100%;
+  padding: 38px;
+}
+
+/* _----------------- */
+
+
+.errContainer {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.err {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#errstatus {
+  font-size: 80px;
+  font-weight: 700;
+  margin: 25px 0;
+}
+
+#errtitle {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+#errmessage {
+  margin: 30px;
+  font-size: 10px;
+  text-align: center;
+}
+
+a {
+  padding-top: 6px;
+  text-decoration: none;
+  box-shadow: 0 0 5px rgba(29, 29, 29, 0.5);
+  width: 120px;
+  border-radius: 10px;
+  color: #000000;
+  height: 30px;
+  text-align: center;
+}
+
+/* Cards */
+
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.card-container {
+  background-color: white;
+  width: 100%;
+  max-width: 1800px;
+  padding: 20px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.card {
+  background-color: #fff;
+  border: solid 1px #ededed;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  background-color: #ededed;
+}
+
+.card img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.card h3 {
+  margin: 15px 15px 6px;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+}
+
+.card p {
+  font-size: 13px;
+  font-weight: 400;
+  color: #767676;
+  margin: 0 0 15px 15px;
+}
+
+.unstyled-link {
+  color: inherit;
+  padding-top: 0;
+  text-decoration: none;
+  box-shadow: none;
+  width: unset;
+  border-radius: unset;
+  height: unset;
+  text-align: unset;
+}
+
+/* Artist page */
+
+.card-main-info {
+  min-height: 290px;
+  background-size: cover;
+  padding: 30px;
+  position: relative;
+  background-position-x: center;
+  z-index: 0;
+}
+
+.section-container {
+  margin-top: 110px;
+}
+
+@media (max-width: 769px) {
+  .main-img {
+    padding-bottom: 100%;
+    background-image: url('../static/mobile-img.png');
+  }
+  .infos {
+    flex-direction: column-reverse;
+  }
+  .infos .text {
+   text-align: center;
+  }
+  .infos .section {
+    justify-content: center;
+   }
+  .section-container {
+    margin-top: 20px;
+  }
+  .footer-container .header-name {
+    font-size: 1.5rem;
+  }
+}
+
+.card-main-info .img-info {
+  background-color: #000000a6;
+  height: 100%;
+  position: absolute;
+  backdrop-filter: blur(8px);
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.card-main-info .infos {
+  color: #fff;
+  display: flex;
+
+}
+.text h1 {
+  display: inline-block;
+  background-color: rgb(209, 250, 250);
+  border-radius: 15px 0 15px 0;
+  color: #000000;
+  padding: 3px;
+  font-size: 1.5rem;
+}
+
+.infos .text {
+  flex: 1;
+  line-height: 1.3;
+}
+
+.infos .section {
+  display: flex;
+  gap: 10px;  
+}
+
+.card-main-info p {
+  color: #c9c9c9;
+  font-weight: 500;
+  font-size: 1.3rem;  
+}
+
+.members, .dates, .locations, .relations {
+  width: 90%;
+  border: solid 1px #ededed;
+  margin: 20px auto;
+}
+
+.members h3, .dates h3, .locations h3, .relations h3 {
+  display: inline-block;
+  background-color: rgb(209, 250, 250);
+  border-radius: 15px 0 15px 0;
+  color: #000000;
+  padding: 3px;
+  text-decoration: underline;
+  margin: 8px;
+}
+.members div, .locations div, .dates div, .relations .div1 {
+  width: 90%;
+  margin: 8px auto;
+  background-color: rgb(199, 226, 226);
+  padding: 3px;
+}
+.div2 {
+  width: 90%;
+  margin: 8px auto;
+  background-color: white;
+  padding: 3px;
+}

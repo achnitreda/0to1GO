@@ -1,0 +1,27 @@
+{{ template "header" . }}
+
+<div class="home-container">
+  <a class="img-container"  href="/">
+    <div class="main-img"></div>
+  </a>
+  <div class="filter-section">
+    
+  </div>
+  <div class="main">
+    <div class="card-container">
+          <div class="cards">
+              {{range .Artist}}
+              <a class="unstyled-link" href="/artists/id={{.Id}}">
+                  <div class="card">
+                      <img src="{{.Image}}" alt="{{.Name}}">
+                      <h3>{{.Name}}</h3>
+                    </div>
+              </a>
+              {{end}}
+            </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+{{ template "footer" . }}
