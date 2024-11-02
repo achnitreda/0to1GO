@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap");
 
 * {
   box-sizing: border-box;
@@ -11,7 +11,6 @@ body {
   background-color: #cdcdcd;
 }
 
-
 /*--------------- header */
 header {
   background-color: #fff;
@@ -21,10 +20,16 @@ header {
   position: sticky;
   top: 0;
   z-index: 10;
+  display: flex;
+  align-items: center;
 }
 
 .header-container {
   padding: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .header-name {
@@ -35,6 +40,29 @@ header {
   margin-bottom: 1.5rem;
 }
 
+.search-bar-container {
+  width: 70%;
+  .search-bar {
+    position: relative;
+    .search-bar-icon {
+      position: absolute;
+      left: 13px;
+      top: 16px;
+    }
+    input {
+      color: #8f8f8f;
+      width: 45%;
+      font-size: 14px;
+      font-weight: 500;
+      height: 47px;
+      border: solid 1px #cdcdcd;
+      border-radius: 34px;
+      box-shadow: 0 1px 3px #00000014;
+      outline: none;
+      padding: 1px 10px 0 37px;
+    }
+  }
+}
 
 /*--------------- footer */
 
@@ -74,7 +102,6 @@ header {
 }
 
 /* _----------------- */
-
 
 .errContainer {
   height: 100vh;
@@ -199,19 +226,32 @@ a {
 }
 
 @media (max-width: 769px) {
+  header {
+    height: 130px;
+  }
+
+  .header-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .search-bar-container .search-bar input {
+    width: 100%;
+  }
+
   .main-img {
     padding-bottom: 100%;
-    background-image: url('../static/mobile-img.png');
+    background-image: url("../static/mobile-img.png");
   }
   .infos {
     flex-direction: column-reverse;
   }
   .infos .text {
-   text-align: center;
+    text-align: center;
   }
   .infos .section {
     justify-content: center;
-   }
+  }
   .section-container {
     margin-top: 20px;
   }
@@ -234,7 +274,6 @@ a {
 .card-main-info .infos {
   color: #fff;
   display: flex;
-
 }
 .text h1 {
   display: inline-block;
@@ -252,22 +291,28 @@ a {
 
 .infos .section {
   display: flex;
-  gap: 10px;  
+  gap: 10px;
 }
 
 .card-main-info p {
   color: #c9c9c9;
   font-weight: 500;
-  font-size: 1.3rem;  
+  font-size: 1.3rem;
 }
 
-.members, .dates, .locations, .relations {
+.members,
+.dates,
+.locations,
+.relations {
   width: 90%;
   border: solid 1px #ededed;
   margin: 20px auto;
 }
 
-.members h3, .dates h3, .locations h3, .relations h3 {
+.members h3,
+.dates h3,
+.locations h3,
+.relations h3 {
   display: inline-block;
   background-color: rgb(209, 250, 250);
   border-radius: 15px 0 15px 0;
@@ -276,7 +321,10 @@ a {
   text-decoration: underline;
   margin: 8px;
 }
-.members div, .locations div, .dates div, .relations .div1 {
+.members div,
+.locations div,
+.dates div,
+.relations .div1 {
   width: 90%;
   margin: 8px auto;
   background-color: rgb(199, 226, 226);
@@ -287,4 +335,15 @@ a {
   margin: 8px auto;
   background-color: white;
   padding: 3px;
+}
+
+@media (max-width: 1070px) and (min-width: 769px) {
+  .search-bar-container {
+    width: 50%;
+    .search-bar {
+      input {
+        width: 100%;
+      }
+    }
+  }
 }

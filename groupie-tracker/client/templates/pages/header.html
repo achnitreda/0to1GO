@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/static/styles.css" />
     <link rel="stylesheet" href="https://unpkg.com/normalize.css" />
     <link rel="stylesheet" href="/static/styles.css" />
     <title>{{.Title}}</title>
@@ -13,6 +13,32 @@
     <header>
       <div class="header-container">
         <a class="header-name" href="/">Groupie Tracker</a>
+        <div class="search-bar-container">
+          <div class="search-bar">
+            <img
+              class="search-bar-icon"
+              src="/static/loupe.svg"
+              alt="loupe image"
+            />
+            <input
+              type="search"
+              placeholder="Search for artists, members, locations and releasing dates"
+              list="search-suggestions"
+            />
+
+            <datalist id="search-suggestions">
+              <option value="JavaScript"></option>
+
+              <option value="CSS"></option>
+
+              <option value="Accessibility"></option>
+
+              <option value="Web Design"></option>
+            </datalist>
+          </div>
+        </div>
       </div>
-  </header>
-{{end}}
+    </header>
+    {{end}}
+  </body>
+</html>
