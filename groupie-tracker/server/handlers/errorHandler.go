@@ -22,6 +22,9 @@ func ErrorHandler(w http.ResponseWriter, _ *http.Request, status int) {
 	case http.StatusMethodNotAllowed:
 		title = "Method Not Allowed"
 		message = "The HTTP method used is not allowed for this endpoint."
+	case http.StatusBadRequest:
+		title = "Bad Request"
+		message = "somthing wrong from your part"
 	default:
 		title = "Error"
 		message = "An unexpected error occurred."

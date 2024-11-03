@@ -1,27 +1,112 @@
 {{ template "header" . }}
 
 <div class="home-container">
-  <a class="img-container"  href="/">
+  <a class="img-container">
     <div class="main-img"></div>
   </a>
+
   <div class="filter-section">
-    
+    <form id="filterForm" method="post" action="/filter/">
+
+      <div class="x">
+        <div style="margin-bottom: 5px;
+        color: #656464;
+        font-weight: 300;" class="creationDateRange">
+          <div class="fromTo">
+            <span>From: <span class="fromCreation"></span></span>
+            <span>To: <span class="toCreation"></span></span>
+          </div>
+          <input type="range" name="minCd" class="minc" min="1958" max="2015" value="1958" />
+          <input type="range" name="maxCd" class="maxc" min="1958" max="2015" value="2015" />
+          <div class="trackCreation"></div>
+          <h5 style="color: #656464;
+          font-size: 12px;
+          font-weight: 300; margin-top: 5px; margin-left: 7px;">creation Date</h5>
+        </div>
+
+        <div class="select">
+          <select class="select" name="location">
+            <option value="">Select a location</option>
+            {{range $key, $v := .Locations}}
+            <option value="{{$key}}">{{$key}}</option>
+            {{end}}
+          </select>
+        </div>
+      </div>
+
+      <div class="y">
+        <div class="membersNum">
+          <h5>Number of members: </h5>
+
+          <div style="display: flex; justify-content: space-between; margin-top: 3px;">
+            <label> <span style="left: 8px; font-size: 20px;" class="num">1</span>
+              <input type="checkbox" name="members" value="1">
+            </label>
+
+            <label><span style="left: 40px; font-size: 20px;" class="num">2</span>
+              <input type="checkbox" name="members" value="2">
+            </label>
+
+            <label><span style="left: 72px; font-size: 20px;" class="num">3</span>
+              <input type="checkbox" name="members" value="3">
+            </label>
+
+            <label><span style="left: 104px; font-size: 20px;" class="num">4</span>
+              <input type="checkbox" name="members" value="4">
+            </label>
+
+            <label><span style="left: 136px; font-size: 20px;" class="num">5</span>
+              <input type="checkbox" name="members" value="5">
+            </label>
+
+            <label><span style="left: 170px; font-size: 20px;" class="num">6</span>
+              <input type="checkbox" name="members" value="6">
+            </label>
+
+            <label><span style="left: 204px; font-size: 20px;" class="num">7</span>
+              <input type="checkbox" name="members" value="7">
+            </label>
+
+            <label><span style="left: 236px; font-size: 20px;" class="num">8</span>
+              <input type="checkbox" name="members" value="8">
+            </label>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 5px;
+        color: #656464;
+        font-weight: 300;" class="firstAlbumRange">
+          <div class="fromTo">
+            <span>From: <span class="fromAlbum"></span></span>
+            <span>To: <span class="toAlbum"></span></span>
+          </div>
+          <input type="range" name="minFa" class="minf" min="1963" max="2018" value="1963" />
+          <input type="range" name="maxFa" class="maxf" min="1963" max="2018" value="2018" />
+          <div class="trackAlbum"></div>
+          <h5 style="color: #656464;
+          font-size: 12px;
+          font-weight: 300; margin-top: 5px; margin-left: 7px;">First Album</h5>
+        </div>
+      </div>
+
+      <button type="submit">Apply</button>
+    </form>
   </div>
+
   <div class="main">
     <div class="card-container">
-          <div class="cards">
-              {{range .Artist}}
-              <a class="unstyled-link" href="/artists/id={{.Id}}">
-                  <div class="card">
-                      <img src="{{.Image}}" alt="{{.Name}}">
-                      <h3>{{.Name}}</h3>
-                    </div>
-              </a>
-              {{end}}
-            </div>
+      <div class="cards">
+        {{range .Artist}}
+        <a class="unstyled-link" href="/artists/id={{.Id}}">
+          <div class="card">
+            <img src="{{.Image}}" alt="{{.Name}}">
+            <h3>{{.Name}}</h3>
+          </div>
+        </a>
+        {{end}}
+      </div>
       </a>
     </div>
   </div>
 </div>
-
 {{ template "footer" . }}

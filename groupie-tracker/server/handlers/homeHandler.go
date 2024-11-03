@@ -5,15 +5,11 @@ import (
 
 	"web/methods"
 )
+
 // function that check for the request path and method
 
-func HomeHandler(artists []methods.Artist) http.HandlerFunc {
+func HomeHandler(artists *[]methods.Artist, locations map[string][]int8) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		data := map[string]interface{}{
-			"Title":  "Home Page",
-			"Artist": artists,
-		}
-
 		switch r.Method {
 
 		case http.MethodGet:
@@ -21,6 +17,13 @@ func HomeHandler(artists []methods.Artist) http.HandlerFunc {
 				ErrorHandler(w, r, http.StatusNotFound)
 				return
 			} else {
+
+				data := map[string]interface{}{
+					"Title":  "Home Page",
+					"Artist": artists,
+					"Locations": locations,
+				}
+
 				methods.RenderTemplate(w, "index.html", data)
 			}
 
