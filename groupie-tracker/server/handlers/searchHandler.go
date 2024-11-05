@@ -19,8 +19,6 @@ func SearchHandler(artists []methods.Artist, locations map[string][]int8) http.H
 	return func(w http.ResponseWriter, r *http.Request) {
 		query := r.URL.Query().Get("q")
 
-		fmt.Println(r.URL)
-
 		var res []SearchSuggestion
 		var person methods.Artist
 
@@ -59,34 +57,46 @@ func SearchHandler(artists []methods.Artist, locations map[string][]int8) http.H
 			}
 
 			for _, member := range artist.Members {
-				if strings.Contains(strings.ToLower(member), query) {
+				if strings.ToLower(member) == query {
 					res = append(res, SearchSuggestion{
 						ID:    artist.Id,
 						Title: artist.Name,
+						Type:  "- artist/band",
+					})
+				} else if strings.Contains(strings.ToLower(member), query) {
+					res = append(res, SearchSuggestion{
+						ID:    artist.Id,
+						Title: member,
 						Type:  "- member",
 					})
 				}
 			}
+
+			if len(res) >= 10 {
+				break
+			}
 		}
 
-		for loc, id := range locations {
-			if strings.Contains(strings.ToLower(loc), query) {
-				// fmt.Println(loc, id)
-				if len(id) == 1 {
-					res = append(res, SearchSuggestion{
-						ID:    int(id[0]),
-						Title: loc,
-						Type:  "-" + strconv.Itoa(int(id[0])),
-					})
-				} else {
-					for _, v := range id {
-						url := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/artists/%v", v)
-						_ = methods.FetchParser(url, &person)
+		if len(res) < 10 {
+			for loc, id := range locations {
+				if strings.Contains(strings.ToLower(loc), query) {
+					// fmt.Println(loc, id)
+					if len(id) == 1 {
 						res = append(res, SearchSuggestion{
-							ID:    person.Id,
-							Title: person.Name,
-							Type:  "- artist/band",
+							ID:    int(id[0]),
+							Title: loc,
+							Type:  "-" + strconv.Itoa(int(id[0])),
 						})
+					} else {
+						for _, v := range id {
+							url := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/artists/%v", v)
+							_ = methods.FetchParser(url, &person)
+							res = append(res, SearchSuggestion{
+								ID:    person.Id,
+								Title: person.Name,
+								Type:  "- artist/band",
+							})
+						}
 					}
 				}
 			}

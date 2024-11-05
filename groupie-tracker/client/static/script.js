@@ -27,7 +27,7 @@ function displaySuggestions(suggestions) {
     suggestionsContainer.innerHTML = '';
 
     suggestions.forEach(suggestion => {
-        if (!seen.has(suggestion.Title)) {
+        if (!seen.has(suggestion.Title+suggestion.ID)) {
             const div = document.createElement('div');
             div.className = 'suggestion-item';
             div.innerHTML = `
@@ -36,11 +36,11 @@ function displaySuggestions(suggestions) {
         </a>
         `;
             suggestionsContainer.appendChild(div);
-            seen.add(suggestion.Title)
+            seen.add(suggestion.Title+suggestion.ID)
         }
 
     });
-
+    console.log(seen);
     suggestionsContainer.style.display = 'block';
 }
 
