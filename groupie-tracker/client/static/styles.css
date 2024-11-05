@@ -42,6 +42,7 @@ header {
 
 .search-bar-container {
   width: 70%;
+  position: relative;
 
   .search-bar {
     position: relative;
@@ -63,6 +64,30 @@ header {
       box-shadow: 0 1px 3px #00000014;
       outline: none;
       padding: 1px 10px 0 37px;
+    }
+  }
+}
+
+.suggestions-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: none;
+  width: 45%;
+
+  .suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+
+    &:hover {
+      background-color: #f5f5f5;
     }
   }
 }
@@ -318,8 +343,11 @@ a {
       }
     }
   }
-}
 
+  .suggestions-container {
+    width: 100%;
+  }
+}
 
 /* style filter */
 .creationDateRange,
@@ -342,7 +370,6 @@ a {
   background: transparent;
   z-index: 2;
 }
-
 
 .maxc::-webkit-slider-thumb,
 .minc::-webkit-slider-thumb,
@@ -373,7 +400,7 @@ a {
   justify-content: space-between;
 }
 
-.fromTo>span {
+.fromTo > span {
   background-color: rgb(154, 159, 160);
   padding: 5px;
   border-radius: 8px;
@@ -400,7 +427,7 @@ input[type="checkbox"] {
   width: 250px;
 }
 
-#filterForm>button {
+#filterForm > button {
   border: none;
   height: 25px;
   width: 250px;
@@ -416,7 +443,8 @@ input[type="checkbox"] {
   align-items: center;
 }
 
-#filterForm .x,#filterForm .y {
+#filterForm .x,
+#filterForm .y {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -428,7 +456,8 @@ input[type="checkbox"] {
   #filterForm {
     flex-direction: column;
   }
-  #filterForm .x,#filterForm .y {
+  #filterForm .x,
+  #filterForm .y {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -447,6 +476,10 @@ input[type="checkbox"] {
   }
 
   .search-bar-container .search-bar input {
+    width: 100%;
+  }
+
+  .suggestions-container {
     width: 100%;
   }
 
@@ -478,8 +511,24 @@ input[type="checkbox"] {
   #filterForm {
     flex-direction: column;
   }
-  #filterForm .x,#filterForm .y {
+  #filterForm .x,
+  #filterForm .y {
     display: flex;
     flex-direction: column;
   }
+}
+
+.search-container {
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.search-results {
+  list-style: none;
+  padding: 0;
+}
+.result-item {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
 }

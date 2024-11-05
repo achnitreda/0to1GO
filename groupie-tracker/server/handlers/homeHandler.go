@@ -19,9 +19,10 @@ func HomeHandler(artists *[]methods.Artist, locations map[string][]int8) http.Ha
 			} else {
 
 				data := map[string]interface{}{
-					"Title":  "Home Page",
-					"Artist": artists,
+					"Title":     "Home Page",
+					"Artist":    artists,
 					"Locations": locations,
+					"Query":     "",
 				}
 
 				methods.RenderTemplate(w, "index.html", data)

@@ -25,12 +25,11 @@ func main() {
 		log.Print(err)
 		return
 	}
-	
-	
+
 	filtered := artists
 
-
 	http.Handle("/", handlers.HomeHandler(&filtered, locations))
+	http.Handle("/search/", handlers.SearchHandler(artists,locations))
 	http.Handle("POST /filter/", filter(artists, &filtered, locations))
 	http.Handle("/artists/", handlers.ArtistHandler(artists))
 	http.HandleFunc("/static/", handlers.StaticFileServer)
@@ -40,7 +39,7 @@ func main() {
 }
 
 func filter(artists []methods.Artist, filtered *[]methods.Artist, locations map[string][]int8) http.HandlerFunc {
-	return func (w http.ResponseWriter, r *http.Request)  {
+	return func(w http.ResponseWriter, r *http.Request) {
 		
 		newArr := []methods.Artist{}
 
@@ -64,18 +63,18 @@ func filter(artists []methods.Artist, filtered *[]methods.Artist, locations map[
 				}
 			}
 		}
-		
-		if  len(newArr) == 0 {
+
+		if len(newArr) == 0 {
 			newArr = append(newArr, artists...)
 		}
-		
+
 		if minCreationDate != "" && maxCreationDate != "" {
 			min, err := strconv.Atoi(minCreationDate)
 			if err != nil {
 				handlers.ErrorHandler(w, r, http.StatusBadRequest)
 				return
 			}
-			
+
 			max, err := strconv.Atoi(maxCreationDate)
 			if err != nil {
 				handlers.ErrorHandler(w, r, http.StatusBadRequest)
@@ -84,13 +83,13 @@ func filter(artists []methods.Artist, filtered *[]methods.Artist, locations map[
 
 			for i := 0; i < len(newArr); i++ {
 				if newArr[i].CreationDate < min || newArr[i].CreationDate > max {
-					newArr = append(newArr[0:i], newArr[i+1:]... )
+					newArr = append(newArr[0:i], newArr[i+1:]...)
 					i--
 				}
 			}
 		}
 
-		if  len(newArr) == 0 {
+		if len(newArr) == 0 {
 			newArr = append(newArr, artists...)
 		}
 
@@ -102,14 +101,13 @@ func filter(artists []methods.Artist, filtered *[]methods.Artist, locations map[
 				}
 
 				if !isExists(int8(newArr[i].Id), locations[location]) {
-					newArr = append(newArr[0:i], newArr[i+1:]... )
+					newArr = append(newArr[0:i], newArr[i+1:]...)
 					i--
 				}
 			}
 		}
 
-
-		if  len(newArr) == 0 {
+		if len(newArr) == 0 {
 			newArr = append(newArr, artists...)
 		}
 
@@ -119,7 +117,7 @@ func filter(artists []methods.Artist, filtered *[]methods.Artist, locations map[
 				handlers.ErrorHandler(w, r, http.StatusBadRequest)
 				return
 			}
-			
+
 			max, err := strconv.Atoi(maxAlbumDate)
 			if err != nil {
 				handlers.ErrorHandler(w, r, http.StatusBadRequest)
@@ -129,7 +127,7 @@ func filter(artists []methods.Artist, filtered *[]methods.Artist, locations map[
 			for i := 0; i < len(newArr); i++ {
 				firstAlbum, _ := strconv.Atoi(strings.Split(newArr[i].FirstAlbum, "-")[2])
 				if firstAlbum < min || firstAlbum > max {
-					newArr = append(newArr[0:i], newArr[i+1:]... )
+					newArr = append(newArr[0:i], newArr[i+1:]...)
 					i--
 				}
 			}
