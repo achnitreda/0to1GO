@@ -29,7 +29,7 @@ func main() {
 	filtered := artists
 
 	http.Handle("/", handlers.HomeHandler(&filtered, locations))
-	http.Handle("/search/", handlers.SearchHandler(artists,locations))
+	http.Handle("/search/", handlers.SearchHandler(artists, locations))
 	http.Handle("POST /filter/", filter(artists, &filtered, locations))
 	http.Handle("/artists/", handlers.ArtistHandler(artists))
 	http.HandleFunc("/static/", handlers.StaticFileServer)
@@ -40,7 +40,7 @@ func main() {
 
 func filter(artists []methods.Artist, filtered *[]methods.Artist, locations map[string][]int8) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		
+
 		newArr := []methods.Artist{}
 
 		location := r.FormValue("location")
@@ -89,10 +89,6 @@ func filter(artists []methods.Artist, filtered *[]methods.Artist, locations map[
 			}
 		}
 
-		if len(newArr) == 0 {
-			newArr = append(newArr, artists...)
-		}
-
 		if location != "" {
 			for i := 0; i < len(newArr); i++ {
 				if _, ok := locations[location]; !ok {
@@ -105,10 +101,6 @@ func filter(artists []methods.Artist, filtered *[]methods.Artist, locations map[
 					i--
 				}
 			}
-		}
-
-		if len(newArr) == 0 {
-			newArr = append(newArr, artists...)
 		}
 
 		if minAlbumDate != "" && maxAlbumDate != "" {

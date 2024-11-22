@@ -27,7 +27,7 @@ function displaySuggestions(suggestions) {
     suggestionsContainer.innerHTML = '';
 
     suggestions.forEach(suggestion => {
-        if (!seen.has(suggestion.Title+suggestion.ID)) {
+        if (!seen.has(suggestion.Title + suggestion.ID)) {
             const div = document.createElement('div');
             div.className = 'suggestion-item';
             div.innerHTML = `
@@ -36,7 +36,7 @@ function displaySuggestions(suggestions) {
         </a>
         `;
             suggestionsContainer.appendChild(div);
-            seen.add(suggestion.Title+suggestion.ID)
+            seen.add(suggestion.Title + suggestion.ID)
         }
 
     });
@@ -52,8 +52,9 @@ searchInput.addEventListener('input', function () {
     }, 300);
 })
 
-// Filter
+// ----- Filter -----
 
+// creationDate
 const minc = document.querySelector(".minc")
 const maxc = document.querySelector(".maxc")
 const minvc = document.querySelector(".fromCreation")
@@ -69,7 +70,7 @@ function updateTrack() {
     trackc.style.background = `linear-gradient(to right, lightblue ${minPercent}%, #cdcdcd ${minPercent}%, #cdcdcd ${maxPercent}%, lightblue ${maxPercent}%)`;
 }
 
-minc?.addEventListener('input', (e) => {
+minc.addEventListener('input', () => {
     if (minc.value > maxc.value) {
         minc.value = maxc.value
     }
@@ -77,7 +78,7 @@ minc?.addEventListener('input', (e) => {
     updateTrack();
 })
 
-maxc?.addEventListener('input', () => {
+maxc.addEventListener('input', () => {
     if (minc.value > maxc.value) {
         maxc.value = minc.value
     }
@@ -85,27 +86,17 @@ maxc?.addEventListener('input', () => {
     updateTrack();
 })
 
-if (minvc) {
-    minvc.textContent = minc?.value;
-} else {
-    console.warn("Element minvc not found in the DOM.");
-} 
-
-if (maxvc) {
-    maxvc.textContent =  maxc?.value;
-} else {
-    console.warn("Element minvc not found in the DOM.");
-} 
-
+minvc.textContent = minc.value;
+maxvc.textContent = maxc.value;
 updateTrack();
 
-
-
+// firstAlbum
 const minf = document.querySelector(".minf")
 const maxf = document.querySelector(".maxf")
 const minvf = document.querySelector(".fromAlbum")
 const maxvf = document.querySelector(".toAlbum")
 const trackf = document.querySelector(".trackAlbum")
+
 function updateTrackf() {
     const minValue = parseInt(minf.value);
     const maxValue = parseInt(maxf.value);
@@ -130,6 +121,7 @@ maxf.addEventListener('input', () => {
     maxvf.textContent = maxf.value
     updateTrackf();
 })
+
 minvf.textContent = minf.value;
 maxvf.textContent = maxf.value;
 updateTrackf();

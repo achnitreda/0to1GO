@@ -189,6 +189,17 @@ a {
   border-radius: 4px;
 }
 
+.card-container-3 {
+  display: flex;
+  gap: 10px;
+  background-color: white;
+  max-width: 1800px;
+  padding: 20px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -385,6 +396,20 @@ a {
   cursor: pointer;
 }
 
+.maxc::-moz-range-thumb,
+.minc::-moz-range-thumb,
+.minf::-moz-range-thumb,
+.maxf::-moz-range-thumb {
+  pointer-events: auto;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #5f5d5d;
+  border-radius: 50%;
+  background: #858181;
+  cursor: pointer;
+}
+
 .trackCreation,
 .trackAlbum {
   position: relative;
@@ -466,6 +491,12 @@ input[type="checkbox"] {
 }
 
 @media (max-width: 769px) {
+  .card-container-3 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
   header {
     height: 130px;
   }

@@ -17,9 +17,10 @@ func HomeHandler(artists *[]methods.Artist, locations map[string][]int8) http.Ha
 				ErrorHandler(w, r, http.StatusNotFound)
 				return
 			} else {
-
+				// fmt.Println("artists -> ", artists, len(*artists))
 				data := map[string]interface{}{
 					"Title":     "Home Page",
+					"ArtistLen": len(*artists),
 					"Artist":    artists,
 					"Locations": locations,
 					"Query":     "",
