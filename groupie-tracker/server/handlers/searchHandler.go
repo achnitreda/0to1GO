@@ -2,10 +2,10 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
+
 	"web/methods"
 )
 
@@ -17,92 +17,130 @@ type SearchSuggestion struct {
 
 func SearchHandler(artists []methods.Artist, locations map[string][]int8) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		query := r.URL.Query().Get("q")
+		if r.Method == http.MethodGet {
+			query := r.URL.Query().Get("q")
 
-		var res []SearchSuggestion
-		var person methods.Artist
+			var res []SearchSuggestion
 
-		if query == "" {
-			json.NewEncoder(w).Encode(artists)
-			return
-		}
-
-		query = strings.ToLower(query)
-		for _, artist := range artists {
-			if strings.Contains(strings.ToLower(artist.Name), query) {
-				// continue to skip (phill collins has one member is himself)
-				res = append(res, SearchSuggestion{
-					ID:    artist.Id,
-					Title: artist.Name,
-					Type:  "- artist/band",
-				})
-				continue
+			if query == "" {
+				json.NewEncoder(w).Encode(artists)
+				return
 			}
 
-			creationDate := strconv.Itoa(artist.CreationDate)
-			if creationDate == query {
-				res = append(res, SearchSuggestion{
-					ID:    artist.Id,
-					Title: artist.Name,
-					Type:  "- artist/band",
-				})
-			}
-
-			if artist.FirstAlbum == query {
-				res = append(res, SearchSuggestion{
-					ID:    artist.Id,
-					Title: artist.Name,
-					Type:  "- artist/band",
-				})
-			}
-
-			for _, member := range artist.Members {
-				if strings.ToLower(member) == query {
+			query = strings.ToLower(query)
+			for _, artist := range artists {
+				if strings.Contains(strings.ToLower(artist.Name), query) {
+					// continue to skip (phill collins has one member is himself)
 					res = append(res, SearchSuggestion{
 						ID:    artist.Id,
 						Title: artist.Name,
 						Type:  "- artist/band",
 					})
-				} else if strings.Contains(strings.ToLower(member), query) {
+					continue
+				}
+
+				creationDate := strconv.Itoa(artist.CreationDate)
+				if strings.Contains(creationDate, query) {
 					res = append(res, SearchSuggestion{
 						ID:    artist.Id,
-						Title: member,
-						Type:  "- member",
+						Title: creationDate,
+						Type:  "- Creation Date",
 					})
 				}
-			}
 
-			if len(res) >= 10 {
-				break
-			}
-		}
+				if strings.Contains(artist.FirstAlbum, query) {
+					res = append(res, SearchSuggestion{
+						ID:    artist.Id,
+						Title: artist.FirstAlbum,
+						Type:  "- First Album",
+					})
+				}
 
-		if len(res) < 10 {
-			for loc, id := range locations {
-				if strings.Contains(strings.ToLower(loc), query) {
-					// fmt.Println(loc, id)
-					if len(id) == 1 {
+				for _, member := range artist.Members {
+					if strings.Contains(strings.ToLower(member), query) {
 						res = append(res, SearchSuggestion{
-							ID:    int(id[0]),
-							Title: loc,
-							Type:  "-" + strconv.Itoa(int(id[0])),
+							ID:    artist.Id,
+							Title: member,
+							Type:  "- member",
 						})
-					} else {
+					}
+				}
+
+				if len(res) >= 15 {
+					break
+				}
+
+			}
+			if len(res) < 15 {
+				for loc := range locations {
+					if len(res) >= 15 {
+						break
+					}
+					if strings.Contains(strings.ToLower(loc), query) {
+						res = append(res, SearchSuggestion{
+							Title: loc,
+							Type:  "- location",
+						})
+					}
+				}
+			}
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(res)
+			return
+		} else if r.Method == http.MethodPost {
+			query := r.FormValue("q")
+			newArr := []methods.Artist{}
+			mp := make(map[int]int)
+
+			if query == "" {
+				Display(w, artists, locations)
+				return
+			}
+
+			query = strings.ToLower(query)
+			for _, artist := range artists {
+				if strings.Contains(strings.ToLower(artist.Name), query) {
+					// continue to skip (phill collins has one member is himself)
+					mp[artist.Id]++
+					continue
+				}
+
+				creationDate := strconv.Itoa(artist.CreationDate)
+				if creationDate == query {
+					mp[artist.Id]++
+				}
+
+				if artist.FirstAlbum == query {
+					mp[artist.Id]++
+				}
+
+				for _, member := range artist.Members {
+					if strings.Contains(strings.ToLower(member), query) {
+						mp[artist.Id]++
+					}
+				}
+
+				for loc, id := range locations {
+					if strings.Contains(strings.ToLower(loc), query) {
 						for _, v := range id {
-							url := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/artists/%v", v)
-							_ = methods.FetchParser(url, &person)
-							res = append(res, SearchSuggestion{
-								ID:    person.Id,
-								Title: person.Name,
-								Type:  "- artist/band",
-							})
+							if v == int8(artist.Id) {
+								mp[artist.Id]++
+							}
 						}
 					}
 				}
 			}
-		}
 
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(res)
+			for _, artist := range artists {
+				if _, ok := mp[artist.Id]; ok {
+					newArr = append(newArr, artist)
+				}
+			}
+
+			Display(w, newArr, locations)
+		} else {
+			ErrorHandler(w, r, http.StatusMethodNotAllowed)
+			return
+		}
 	}
 }

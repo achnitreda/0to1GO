@@ -8,25 +8,17 @@ import (
 
 // function that check for the request path and method
 
-func HomeHandler(artists *[]methods.Artist, locations map[string][]int8) http.HandlerFunc {
+func HomeHandler(artists []methods.Artist, locations map[string][]int8) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		switch r.Method {
 
-		case http.MethodGet:
+		case http.MethodGet, http.MethodPost:
 			if r.URL.Path != "/" {
 				ErrorHandler(w, r, http.StatusNotFound)
 				return
 			} else {
 				// fmt.Println("artists -> ", artists, len(*artists))
-				data := map[string]interface{}{
-					"Title":     "Home Page",
-					"ArtistLen": len(*artists),
-					"Artist":    artists,
-					"Locations": locations,
-					"Query":     "",
-				}
-
-				methods.RenderTemplate(w, "index.html", data)
+				Display(w, artists, locations)
 			}
 
 		default:
@@ -35,3 +27,15 @@ func HomeHandler(artists *[]methods.Artist, locations map[string][]int8) http.Ha
 		}
 	}
 }
+
+func Display(w http.ResponseWriter, artists []methods.Artist, locations map[string][]int8) {
+	data := map[string]interface{}{
+		"Title":     "Home Page",
+		"ArtistLen": len(artists),
+		"Artist":    artists,
+		"Locations": locations,
+	}
+
+	methods.RenderTemplate(w, "index.html", data)
+}
+

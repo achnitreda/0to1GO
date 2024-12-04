@@ -8,7 +8,7 @@ async function fetchSuggestions(query) {
     }
 
     try {
-        const resp = await fetch(`/search/?q=${encodeURIComponent(query)}`)
+        const resp = await fetch(`/search/?q=${encodeURIComponent(query.trim())}`)
         const suggestions = await resp.json()
         if (suggestions && suggestions.length > 0) {
             displaySuggestions(suggestions);
@@ -21,36 +21,52 @@ async function fetchSuggestions(query) {
     }
 }
 
+function search(input) {
+    searchInput.value = input;
+    setTimeout(() => document.getElementById('searchForm').submit(), 300)
+}
+
 function displaySuggestions(suggestions) {
     seen = new Set()
 
     suggestionsContainer.innerHTML = '';
 
     suggestions.forEach(suggestion => {
-        if (!seen.has(suggestion.Title + suggestion.ID)) {
+        if (!seen.has(suggestion.Title + suggestion.Type)) {
             const div = document.createElement('div');
             div.className = 'suggestion-item';
-            div.innerHTML = `
-        <a class="unstyled-link" href="/artists/id=${suggestion.ID}">
-            <p>${suggestion.Title} ${suggestion.Type}</p>
-        </a>
-        `;
+            if (suggestion.Type == '- artist/band') {
+                div.innerHTML = `
+                <a class="unstyled-link" href="/artists/id=${suggestion.ID}">
+                    <p>${suggestion.Title} ${suggestion.Type}</p>
+                </a>
+                `;
+            } else {
+                div.innerHTML = `<span onclick="search('${suggestion.Title}')">${suggestion.Title} ${suggestion.Type}</span>`;
+            }
+
             suggestionsContainer.appendChild(div);
-            seen.add(suggestion.Title + suggestion.ID)
+            seen.add(suggestion.Title + suggestion.Type)
         }
 
     });
-    console.log(seen);
+
     suggestionsContainer.style.display = 'block';
 }
 
+
 searchInput.addEventListener('input', function () {
-    console.log("x")
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
         fetchSuggestions(this.value);
     }, 300);
 })
+
+searchInput.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        document.getElementById('searchForm').submit();
+    }
+});
 
 // ----- Filter -----
 

@@ -49,7 +49,6 @@ func ArtistHandler(artists []methods.Artist) http.HandlerFunc {
 					"Relation": relation,
 					"Dates": dates,
 					"Locations": locations,
-					"Query":     "",
 				}
 				methods.RenderTemplate(w, "artist.html", data)
 			default:

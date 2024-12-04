@@ -1,37 +1,34 @@
 {{ define "header" }}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="/static/styles.css" />
-    <link rel="stylesheet" href="https://unpkg.com/normalize.css" />
-    <link rel="stylesheet" href="/static/styles.css" />
-    <title>{{.Title}}</title>
-  </head>
-  <body>
-    <header>
-      <div class="header-container">
-        <a class="header-name" href="/">Groupie Tracker</a>
-        <div class="search-bar-container">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="/static/styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/normalize.css" />
+  <link rel="stylesheet" href="/static/styles.css" />
+  <title>{{.Title}}</title>
+</head>
+
+<body>
+  <header>
+    <div class="header-container">
+      <a class="header-name" href="/">Groupie Tracker</a>
+      <div class="search-bar-container">
+        <form id="searchForm" method="POST" action="/search/">
           <div class="search-bar">
-            <img
-              class="search-bar-icon"
-              src="/static/loupe.svg"
-              alt="loupe image"
-            />
-            <input
-              type="text"
-              placeholder="Search for artists, members, locations and releasing dates"
-              name="q"
-              value="{{.Query}}"
-              id="searchInput"
-            />
+            <img class="search-bar-icon" src="/static/loupe.svg" alt="loupe
+              image" />
+            <input type="text" placeholder="Search for artists, members, locations and releasing dates" name="q"
+              id="searchInput" autocomplete="off" />
           </div>
-          <div class="suggestions-container" id="suggestionsContainer"></div>
-        </div>
+        </form>
+        <div class="suggestions-container" id="suggestionsContainer"></div>
       </div>
-    </header>
-    {{end}}
-  </body>
+    </div>
+  </header>
+  {{end}}
+</body>
+
 </html>
